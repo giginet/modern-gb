@@ -16,10 +16,11 @@ steps:
     repositoryName: '$(Build.Repository.Name)'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tagSource: 'auto'
+    tagSource: 'manual'
+    tag: '$(Build.SourceVersion)'
     title: '$(Build.SourceVersion)'
     releaseNotesSource: 'input'
-    releaseNotes: 'Beta'
+    releaseNotes: '$(Build.SourceVersion)'
     assets: '*.gb'
     isDraft: true
     addChangeLog: false
