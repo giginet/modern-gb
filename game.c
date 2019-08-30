@@ -19,8 +19,6 @@ void move(struct Sprite* sprite, int dx, int dy) {
   int _i;
   int width, height;
 
-  _x = sprite->x;
-  _y = sprite->y;
   width = sprite->width;
   height = sprite->height;
 
@@ -28,7 +26,7 @@ void move(struct Sprite* sprite, int dx, int dy) {
     for (_y = 0; _y < height; ++_y) {
       _i = _y * width + _x;
       set_sprite_tile(_i, _i);
-      move_sprite(_i, dx + _x * 8, dy + _y * 8);
+      move_sprite(_i, sprite->x + dx + _x * 8, sprite->y + dy + _y * 8);
     }
   }
   sprite->x = sprite->x + dx;
@@ -41,12 +39,12 @@ void render_sprite(struct Sprite *sprite) {
 
   int width = sprite->width;
   int height = sprite->height;
-  set_sprite_data(0, width * 8, sprite->pixels); // TODO
+  set_sprite_data(0, width * 8, sprite->pixels);
   for (_x = 0; _x < width; ++_x) {
     for (_y = 0; _y < height; ++_y) {
       index = _y * width + _x;
       set_sprite_tile(index, index);
-      move_sprite(index, 100 + _x * 8, 100 + _y * 8);
+      move_sprite(index, sprite->x + _x * 8, sprite->y + _y * 8);
     }
   }
 }
@@ -65,18 +63,18 @@ int main() {
   SHOW_SPRITES;
 
   while(1) {
-    /* if(joypad() & J_RIGHT) { */
-    /*   move(++x, y); */
-    /* } */
-    /* if(joypad() & J_LEFT) { */
-    /*   move(--x, y); */
-    /* } */
-    /* if(joypad() & J_UP) { */
-    /*   move(x, --y); */
-    /* } */
-    /* if(joypad() & J_DOWN) { */
-    /*   move(x, ++y); */
-    /* } */
+    if(joypad() & J_RIGHT) {
+      move(&player, 1, 0);
+    }
+    if(joypad() & J_LEFT) {
+      move(&player, -1, 0);
+    }
+    if(joypad() & J_UP) {
+      move(&player, 0, -1);
+    }
+    if(joypad() & J_DOWN) {
+      move(&player, 0, 1);
+    }
     delay(10);
   }
   return 0;
