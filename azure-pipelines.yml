@@ -1,15 +1,4 @@
 trigger:
-- task: GitHubRelease@0
-  inputs:
-    repositoryName: '$(Build.Repository.Name)'
-    action: 'create'
-    target: '$(Build.SourceVersion)'
-    tagSource: 'auto'
-    releaseNotesSource: 'input'
-    releaseNotes: 'Beta'
-    assets: '$(Build.ArtifactStagingDirectory)/*.gb'
-    isPreRelease: true
-    addChangeLog: false
 - master
 
 pool:
@@ -23,4 +12,13 @@ steps:
   displayName: 'Build ROM'
 
 - task: GitHubRelease@0
-  displayName: 'Upload to GitHub'
+  inputs:
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'auto'
+    releaseNotesSource: 'input'
+    releaseNotes: 'Beta'
+    assets: '$(Build.ArtifactStagingDirectory)/*.gb'
+    isPreRelease: true
+    addChangeLog: false
