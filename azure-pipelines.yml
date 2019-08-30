@@ -17,8 +17,17 @@ steps:
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'auto'
+- task: GitHubRelease@0
+  inputs:
+    gitHubConnection: 'giginet'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'manual'
+    tag: '$(Build.BuildId)'
+    title: 'Beta'
     releaseNotesSource: 'input'
     releaseNotes: 'Beta'
     assets: '$(Build.ArtifactStagingDirectory)/*.gb'
-    isPreRelease: true
+    isDraft: true
     addChangeLog: false
