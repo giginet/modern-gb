@@ -13,5 +13,5 @@ steps:
 - script: docker pull giginet/gbdk
   displayName: 'Pull Docker image'
 
-- script: docker run -it --rm -v `pwd`:/gbdk giginet/gbdk /opt/gbdk/bin/lcc -o /gbdk/rom.gb /gbdk/game.c
+- script: docker run --rm gbdk -v `pwd`:/gbdk giginet/gbdk /opt/gbdk/bin/lcc -o /gbdk/rom.gb /gbdk/game.c
   displayName: 'Build ROM'
