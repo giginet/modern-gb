@@ -1,9 +1,15 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
+- task: GitHubRelease@0
+  inputs:
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'auto'
+    releaseNotesSource: 'input'
+    releaseNotes: 'Beta'
+    assets: '$(Build.ArtifactStagingDirectory)/*.gb'
+    isPreRelease: true
+    addChangeLog: false
 - master
 
 pool:
@@ -15,3 +21,6 @@ steps:
 
 - script: docker run --rm -v `pwd`:/gbdk giginet/gbdk /opt/gbdk/bin/lcc -o /gbdk/rom.gb /gbdk/game.c
   displayName: 'Build ROM'
+
+- task: GitHubRelease@0
+  displayName: 'Upload to GitHub'
