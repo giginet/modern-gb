@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+docker run -it --rm -v `pwd`:/gbdk giginet/gbdk /opt/gbdk/bin/lcc -o /gbdk/rom.gb /gbdk/game.c
