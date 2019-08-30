@@ -1,8 +1,38 @@
 #include <stdio.h>
 #include <gb/gb.h>
 
-void main() {
+// class Color
+// {
+// public:
+//     UInt08 r;
+//     UInt08 g;
+//     UInt08 b;
+//     
+//     Color()
+//     {
+//         r = g = b = 0;
+//     }
+//
+//     Color(UInt08 n)
+//     {
+//         r = g = b = n;
+//     }
+//
+//     Color(UInt08 r0, UInt08 g0, UInt08 b0)
+//     {
+//         r = r0;
+//         g = g0;
+//         b = b0;
+//     }
+// };
+
+// Sprite::Sprite(): _x(0), _y(0) {
+// }
+
+int main() {
     UINT8 joypad_result;
+
+    /* auto color = new Color(); */
 
     while(1) {
         joypad_result = joypad();
@@ -32,4 +62,5 @@ void main() {
             printf("PUSH RIGHT\n");
         }
     }
+    return 0;
 }
