@@ -1,14 +1,5 @@
 #include <gb/gb.h>
-
-typedef struct {
-    UBYTE x;
-    UBYTE y;
-    UBYTE width;
-    UBYTE height;
-    UBYTE dx;
-    UBYTE dy;
-    unsigned char *pixels;
-} Sprite;
+#include "sprite.h"
 
 void move(Sprite* sprite, int dx, int dy) {
     int _x, _y;

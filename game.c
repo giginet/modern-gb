@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <gb/gb.h>
-#include "sprite.c"
+#include "sprite.h"
 #include "pixels.h"
 #include "sprite_utils.c"
 #include "bullet.c"
 
 Sprite bullet;
+Sprite bullet2;
 Sprite player;
 /* struct Sprite *bullets[]; */
 
@@ -22,6 +23,12 @@ int main() {
     bullet.width = 1;
     bullet.height = 1;
 
+    bullet2.pixels = bullet_pixels;
+    bullet2.x = 100;
+    bullet2.y = 100;
+    bullet2.width = 1;
+    bullet2.height = 1;
+
     register_sprite(&player, 0);
     register_sprite(&bullet, 10);
 
@@ -29,6 +36,7 @@ int main() {
 
     render_sprite(&player, 0, 0);
     render_sprite(&bullet, 10, 10);
+    render_sprite(&bullet2, 10, 11);
     SHOW_SPRITES;
 
     while(1) {
