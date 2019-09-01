@@ -10,14 +10,11 @@ Sprite player;
 /* struct Sprite *bullets[]; */
 
 int main() {
-
-    /* set_sprite_data(0, 2, all_bullet_pixels); */
-
-    player.pixels = bullet_pixels;
+    player.pixels = player_pixels;
     player.x = 30;
     player.y = 30;
-    player.width = 1;
-    player.height = 1;
+    player.width = 3;
+    player.height = 3;
 
     bullet.pixels = bullet_pixels;
     bullet.x = 70;
@@ -26,12 +23,12 @@ int main() {
     bullet.height = 1;
 
     register_sprite(&player, 0);
-    register_sprite(&bullet, 1);
+    register_sprite(&bullet, 10);
 
     SPRITES_8x8;
 
     render_sprite(&player, 0, 0);
-    render_sprite(&bullet, 1, 1);
+    render_sprite(&bullet, 10, 10);
     SHOW_SPRITES;
 
     while(1) {
