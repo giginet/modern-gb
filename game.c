@@ -5,25 +5,33 @@
 #include "sprite_utils.c"
 #include "bullet.c"
 
-int main() {
-    struct Sprite *bullets[];
-    struct Sprite bullet;
-    struct Sprite player;
+Sprite bullet;
+Sprite player;
+/* struct Sprite *bullets[]; */
 
-    player.pixels = player_pixels;
-    player.x = 0;
-    player.y = 0;
-    player.width = 3;
-    player.height = 3;
+int main() {
+
+    /* set_sprite_data(0, 2, all_bullet_pixels); */
+
+    player.pixels = bullet_pixels;
+    player.x = 30;
+    player.y = 30;
+    player.width = 1;
+    player.height = 1;
+
+    bullet.pixels = bullet_pixels;
+    bullet.x = 70;
+    bullet.y = 70;
+    bullet.width = 1;
+    bullet.height = 1;
+
+    register_sprite(&player, 0);
+    register_sprite(&bullet, 1);
 
     SPRITES_8x8;
 
-    render_sprite(&player);
-
-    bullet.x = 30;
-    bullet.y = 30;
-    createBullet(&bullet);
-    /* render_sprite(&bullet); */
+    render_sprite(&player, 0, 0);
+    render_sprite(&bullet, 1, 1);
     SHOW_SPRITES;
 
     while(1) {
