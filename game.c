@@ -5,38 +5,68 @@
 #include "sprite_utils.c"
 #include "bullet.c"
 
+TileSet player_tile;
+TileSet bullet_tile;
+
 Sprite bullet;
 Sprite bullet2;
 Sprite player;
+
 /* struct Sprite *bullets[]; */
 
+void initialize_tile(
+        TileSet *tile_set,
+        UBYTE vc, 
+        UBYTE hc, 
+        UBYTE start_index, 
+        unsigned char *pixels) {
+    tile_set->vertical_count = vc;
+    tile_set->horizontal_count = hc;
+    tile_set->start_index = start_index;
+    tile_set->pixels = pixels;
+}
+
+void initialize_tiles() {
+    /* initialize_tile(&player_tile, 3, 3, 0, player_pixels); */
+    /* initialize_tile(&bullet_tile, 1, 1, 10, bullet_pixels); */
+    player_tile.horizontal_count = 3;
+    player_tile.vertical_count = 3;
+    player_tile.start_index = 0;
+    player_tile.pixels = player_pixels;
+
+    bullet_tile.horizontal_count = 1;
+    bullet_tile.vertical_count = 1;
+    bullet_tile.start_index = 10;
+    bullet_tile.pixels = bullet_pixels;
+
+    register_tile(&player_tile);
+    register_tile(&bullet_tile);
+}
+
 int main() {
-    player.pixels = player_pixels;
+    initialize_tiles();
+
     player.x = 30;
     player.y = 30;
-    player.width = 3;
-    player.height = 3;
+    player.slot = 0;
+    player.tile = &player_tile;
 
-    bullet.pixels = bullet_pixels;
     bullet.x = 70;
     bullet.y = 70;
-    bullet.width = 1;
-    bullet.height = 1;
+    bullet.slot = 10;
+    bullet.tile = &bullet_tile;
 
-    bullet2.pixels = bullet_pixels;
+    bullet2.tile = &bullet_tile;
     bullet2.x = 100;
     bullet2.y = 100;
-    bullet2.width = 1;
-    bullet2.height = 1;
-
-    register_sprite(&player, 0);
-    register_sprite(&bullet, 10);
+    bullet2.slot = 11;
 
     SPRITES_8x8;
 
-    render_sprite(&player, 0, 0);
-    render_sprite(&bullet, 10, 10);
-    render_sprite(&bullet2, 10, 11);
+    render_sprite(&player);
+    render_sprite(&bullet);
+    render_sprite(&bullet2);
+
     SHOW_SPRITES;
 
     while(1) {

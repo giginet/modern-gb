@@ -6,8 +6,8 @@ void move(Sprite* sprite, int dx, int dy) {
     int _i;
     int width, height;
 
-    width = sprite->width;
-    height = sprite->height;
+    width = sprite->tile->horizontal_count;
+    height = sprite->tile->vertical_count;
 
     for (_x = 0; _x < width; ++_x) {
         for (_y = 0; _y < height; ++_y) {
@@ -20,23 +20,23 @@ void move(Sprite* sprite, int dx, int dy) {
     sprite->y = sprite->y + dy;
 }
 
-void register_sprite(Sprite *sprite, int tile_offset) {
-    int width = sprite->width;
-    int height = sprite->height;
-    set_sprite_data(tile_offset, width * height, sprite->pixels);
+void register_tile(TileSet *tile) {
+    int width = tile->horizontal_count;
+    int height = tile->vertical_count;
+    set_sprite_data(tile->start_index, width * height, tile->pixels);
 }
 
-void render_sprite(Sprite *sprite, int tile_offset, int slot) {
+void render_sprite(Sprite *sprite) {
     UBYTE _x, _y;
     int tile_index;
 
-    UBYTE _w = sprite->width;
-    UBYTE _h = sprite->height;
+    UBYTE _w = sprite->tile->horizontal_count;
+    UBYTE _h = sprite->tile->vertical_count;
     for (_x = 0; _x < _w; ++_x) {
         for (_y = 0; _y < _h; ++_y) {
             tile_index = _y * _w + _x;
-            set_sprite_tile(slot + tile_index, tile_offset + tile_index);
-            move_sprite(slot + tile_index, sprite->x + _x * 8, sprite->y + _y * 8);
+            set_sprite_tile(sprite->slot + tile_index, sprite->tile->start_index + tile_index);
+            move_sprite(sprite->slot + tile_index, sprite->x + _x * 8, sprite->y + _y * 8);
         }
     }
 }
