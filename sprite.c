@@ -1,7 +1,9 @@
 struct Sprite {
-  UBYTE x;
-  UBYTE y;
-  UBYTE width;
-  UBYTE height;
-  unsigned char *pixels;
+    UBYTE x;
+    UBYTE y;
+    UBYTE width;
+    UBYTE height;
+    UBYTE dx;
+    UBYTE dy;
+    unsigned char *pixels;
 };

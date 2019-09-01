@@ -34,3 +34,4 @@ void render_sprite(struct Sprite *sprite) {
     }
   }
 }
+
