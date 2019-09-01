@@ -8,27 +8,22 @@
 TileSet player_tile;
 TileSet bullet_tile;
 
-Sprite bullet;
-Sprite bullet2;
+// TODO shoot multiple bullets
+Sprite bullets[1];
+UBYTE bullet_count = 0;
 Sprite player;
+
+UBYTE bullet_index;
+
+/*
+ * Slot
+ * 0 ~ 8 Player
+ * 9, 10, 11, 12 Player Bullet
+ */
 
 /* struct Sprite *bullets[]; */
 
-void initialize_tile(
-        TileSet *tile_set,
-        UBYTE vc, 
-        UBYTE hc, 
-        UBYTE start_index, 
-        unsigned char *pixels) {
-    tile_set->vertical_count = vc;
-    tile_set->horizontal_count = hc;
-    tile_set->start_index = start_index;
-    tile_set->pixels = pixels;
-}
-
 void initialize_tiles() {
-    /* initialize_tile(&player_tile, 3, 3, 0, player_pixels); */
-    /* initialize_tile(&bullet_tile, 1, 1, 10, bullet_pixels); */
     player_tile.horizontal_count = 3;
     player_tile.vertical_count = 3;
     player_tile.start_index = 0;
@@ -36,7 +31,7 @@ void initialize_tiles() {
 
     bullet_tile.horizontal_count = 1;
     bullet_tile.vertical_count = 1;
-    bullet_tile.start_index = 10;
+    bullet_tile.start_index = 9;
     bullet_tile.pixels = bullet_pixels;
 
     register_tile(&player_tile);
@@ -51,23 +46,9 @@ int main() {
     player.slot = 0;
     player.tile = &player_tile;
 
-    bullet.x = 70;
-    bullet.y = 70;
-    bullet.slot = 10;
-    bullet.tile = &bullet_tile;
-
-    bullet2.tile = &bullet_tile;
-    bullet2.x = 100;
-    bullet2.y = 100;
-    bullet2.slot = 11;
-
     SPRITES_8x8;
 
     render_sprite(&player);
-    render_sprite(&bullet);
-    render_sprite(&bullet2);
-
-    SHOW_SPRITES;
 
     while(1) {
         if(joypad() & J_RIGHT) {
@@ -82,7 +63,26 @@ int main() {
         if(joypad() & J_DOWN) {
             move(&player, 0, 1);
         }
+        if(joypad() & J_A) {
+            if (bullet_count < 1) {
+                bullets[bullet_count].tile = &bullet_tile;
+                bullets[bullet_count].x = player.x + 8;
+                bullets[bullet_count].y = player.y;
+                bullets[bullet_count].slot = 9 + bullet_count;
+                render_sprite(&bullets[bullet_count]);
+                ++bullet_count;
+            }
+        }
+        for (bullet_index = 0; bullet_index < bullet_count; ++bullet_index) {
+            if (bullets[bullet_index].y > -10) {
+                move(&bullets[bullet_index], 0, -5); 
+            } else {
+                --bullet_count;
+            }
+        }
+        
         delay(10);
+        SHOW_SPRITES;
     }
     return 0;
 }

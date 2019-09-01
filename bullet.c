@@ -6,7 +6,8 @@
 /*     #<{(| sprite->pixels = bullet_pixels; |)}># */
 /* } */
 /*  */
-/* int update(struct Sprite *sprite) { */
-/*     #<{(| sprite->x = sprite->x + sprite->dx; |)}># */
-/*     #<{(| sprite->y = sprite->y + sprite->dy; |)}># */
+/* void update(Sprite *sprite) { */
+/*     sprite->x += sprite->dx; */
+/*     sprite->y += sprite->dy; */
+/*     #<{(| printf("dy = %d\n", sprite->dy); |)}># */
 /* } */

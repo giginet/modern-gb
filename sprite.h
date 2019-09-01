@@ -10,9 +10,7 @@ typedef struct {
 
 typedef struct {
     UBYTE x;
-    UBYTE y;
-    UBYTE dx;
-    UBYTE dy;
+    int y;
     UBYTE slot;
     TileSet *tile;
 } Sprite;
