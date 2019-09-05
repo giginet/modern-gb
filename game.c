@@ -4,6 +4,7 @@
 #include "pixels.h"
 #include "sprite_utils.c"
 #include "bullet.c"
+#include "bg.h"
 
 TileSet player_tile;
 TileSet bullet_tile;
@@ -38,6 +39,12 @@ void initialize_tiles() {
     register_tile(&bullet_tile);
 }
 
+
+void load_background() {
+    set_bkg_data(0, 2, bg_tile_data);
+    set_bkg_tiles(0, 0, 20, 18, bg_map_data); 
+}
+
 int main() {
     initialize_tiles();
 
@@ -45,6 +52,8 @@ int main() {
     player.y = 30;
     player.slot = 0;
     player.tile = &player_tile;
+
+    load_background();
 
     SPRITES_8x8;
 
@@ -75,7 +84,7 @@ int main() {
         }
         for (bullet_index = 0; bullet_index < bullet_count; ++bullet_index) {
             if (bullets[bullet_index].y > -10) {
-                move(&bullets[bullet_index], 0, -5); 
+                move(&bullets[bullet_index], 0, -2); 
             } else {
                 --bullet_count;
             }
@@ -83,6 +92,7 @@ int main() {
         
         delay(10);
         SHOW_SPRITES;
+        SHOW_BKG;
     }
     return 0;
 }
