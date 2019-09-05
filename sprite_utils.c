@@ -1,7 +1,7 @@
 #include <gb/gb.h>
 #include "sprite.h"
 
-void move_by(Sprite* sprite, int dx, int dy) {
+void move_to(Sprite* sprite, int to_x, int to_y) {
     int _x, _y;
     int _i;
     int width, height;
@@ -12,11 +12,15 @@ void move_by(Sprite* sprite, int dx, int dy) {
     for (_x = 0; _x < width; ++_x) {
         for (_y = 0; _y < height; ++_y) {
             _i = _y * width + _x;
-            move_sprite(sprite->slot + _i, sprite->x + _x * 8, sprite->y + _y * 8);
+            move_sprite(sprite->slot + _i, to_x + _x * 8, to_y + _y * 8);
         }
     }
-    sprite->x = sprite->x + dx;
-    sprite->y = sprite->y + dy;
+    sprite->x = to_x;
+    sprite->y = to_y;
+}
+
+void move_by(Sprite* sprite, int dx, int dy) {
+    move_to(sprite, sprite->x + dx, sprite->y + dy);
 }
 
 void register_tile(TileSet *tile) {

@@ -120,8 +120,8 @@ int main() {
                         30, 
                         bullets[bullet_index].x, 
                         bullets[bullet_index].y) == 1) {
-                move_by(&bullets[bullet_index], 0, -20); 
-                move_by(&enemy, -20, -5);
+                move_to(&bullets[bullet_index], 0, -20); 
+                move_to(&enemy, -20, -5);
             }
         }
         
