@@ -73,7 +73,7 @@ int main() {
     player.tile = &player_tile;
 
     enemy.x = 80;
-    enemy.y = 20;
+    enemy.y = 0;
     enemy.slot = 13;
     enemy.tile = &enemy_tile;
 
@@ -86,16 +86,16 @@ int main() {
 
     while(1) {
         if(joypad() & J_RIGHT) {
-            move_by(&player, 1, 0);
+            move_by(&player, 3, 0);
         }
         if(joypad() & J_LEFT) {
-            move_by(&player, -1, 0);
+            move_by(&player, -3, 0);
         }
         if(joypad() & J_UP) {
-            move_by(&player, 0, -1);
+            move_by(&player, 0, -3);
         }
         if(joypad() & J_DOWN) {
-            move_by(&player, 0, 1);
+            move_by(&player, 0, 3);
         }
         if(joypad() & J_A) {
             if (bullet_count < 1) {
@@ -107,13 +107,19 @@ int main() {
                 ++bullet_count;
             }
         }
+    
+        if (enemy.y < 40) {
+            move_by(&enemy, 0, 4);
+        } else {
+            move_to(&enemy, (enemy.x + 3) % 180, enemy.y);
+        }
+
         for (bullet_index = 0; bullet_index < bullet_count; ++bullet_index) {
             if (bullets[bullet_index].y > -10) {
-                move_by(&bullets[bullet_index], 0, -2); 
+                move_by(&bullets[bullet_index], 0, -5); 
             } else {
                 --bullet_count;
             }
-
             if(hit_test(enemy.x, 
                         enemy.y, 
                         30, 
@@ -121,7 +127,7 @@ int main() {
                         bullets[bullet_index].x, 
                         bullets[bullet_index].y) == 1) {
                 move_to(&bullets[bullet_index], 0, -20); 
-                move_to(&enemy, -20, -5);
+                move_to(&enemy, (enemy.x + 20) % 150, -20);
             }
         }
         
