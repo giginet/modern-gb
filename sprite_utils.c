@@ -1,7 +1,7 @@
 #include <gb/gb.h>
 #include "sprite.h"
 
-void move(Sprite* sprite, int dx, int dy) {
+void move_by(Sprite* sprite, int dx, int dy) {
     int _x, _y;
     int _i;
     int width, height;

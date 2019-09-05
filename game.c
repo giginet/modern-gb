@@ -86,16 +86,16 @@ int main() {
 
     while(1) {
         if(joypad() & J_RIGHT) {
-            move(&player, 1, 0);
+            move_by(&player, 1, 0);
         }
         if(joypad() & J_LEFT) {
-            move(&player, -1, 0);
+            move_by(&player, -1, 0);
         }
         if(joypad() & J_UP) {
-            move(&player, 0, -1);
+            move_by(&player, 0, -1);
         }
         if(joypad() & J_DOWN) {
-            move(&player, 0, 1);
+            move_by(&player, 0, 1);
         }
         if(joypad() & J_A) {
             if (bullet_count < 1) {
@@ -109,7 +109,7 @@ int main() {
         }
         for (bullet_index = 0; bullet_index < bullet_count; ++bullet_index) {
             if (bullets[bullet_index].y > -10) {
-                move(&bullets[bullet_index], 0, -2); 
+                move_by(&bullets[bullet_index], 0, -2); 
             } else {
                 --bullet_count;
             }
@@ -120,8 +120,8 @@ int main() {
                         30, 
                         bullets[bullet_index].x, 
                         bullets[bullet_index].y) == 1) {
-                move(&bullets[bullet_index], 0, -20); 
-                move(&enemy, -20, -5);
+                move_by(&bullets[bullet_index], 0, -20); 
+                move_by(&enemy, -20, -5);
             }
         }
         
